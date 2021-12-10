@@ -135,13 +135,8 @@ if __name__ == "__main__":
         ###################################
         global_feature = np.hstack([fv_histogram, fv_haralick, fv_hu_moments])
 
-        # scale features in the range (0-1)
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        rescaled_feature = scaler.fit_transform(global_feature.reshape(-1,1))
-
         # predict label of test image
-        print(rescaled_feature.reshape(1,-1))
-        prediction = clf.predict(rescaled_feature.reshape(1,-1))[0]
+        prediction = clf.predict(global_feature.reshape(1,-1))[0]
 
         # show predicted label on image
         cv2.putText(image, train_labels[prediction], (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,255,255), 3)

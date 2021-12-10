@@ -106,17 +106,12 @@ if __name__ == "__main__":
     target      = le.fit_transform(labels)
     print("[STATUS] training labels encoded...")
 
-    # scale features in the range (0-1)
-    scaler            = MinMaxScaler(feature_range=(0, 1))
-    rescaled_features = scaler.fit_transform(global_features)
-    print("[STATUS] feature vector normalized...")
-
     print("[STATUS] target labels: {}".format(target))
     print("[STATUS] target labels shape: {}".format(target.shape))
 
     # save the feature vector using HDF5
     h5f_data = h5py.File(h5_data, 'w')
-    h5f_data.create_dataset('dataset_1', data=np.array(rescaled_features))
+    h5f_data.create_dataset('dataset_1', data=np.array(global_features))
 
     h5f_label = h5py.File(h5_labels, 'w')
     h5f_label.create_dataset('dataset_1', data=np.array(target))

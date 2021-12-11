@@ -4,10 +4,8 @@ from pydot import graph_from_dot_data
 from train_test import *
 
 def print_tree(tree):
-    # get the training labels
     train_labels = os.listdir(train_path)
 
-    # sort the training labels
     train_labels.sort()
 
     if not os.path.exists(test_path):

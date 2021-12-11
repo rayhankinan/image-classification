@@ -45,7 +45,7 @@ def fd_histogram(image, mask=None):
     # return the histogram
     return hist.flatten()
 
-if __name__ == "__main__":
+def prepare_data():
     # get the training labels
     train_labels = os.listdir(train_path)
 
@@ -120,3 +120,6 @@ if __name__ == "__main__":
     h5f_label.close()
 
     print("[STATUS] end of training..")
+
+if __name__ == "__main__":
+    prepare_data()

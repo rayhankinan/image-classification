@@ -2,7 +2,6 @@
 # GLOBAL FEATURE EXTRACTION
 #-----------------------------------
 from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import mahotas
 import cv2

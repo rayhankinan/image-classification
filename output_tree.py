@@ -2,7 +2,7 @@ import os
 from sklearn.tree import export_graphviz
 from train_test import *
 
-def print_tree(bintree):
+def print_tree(tree):
     # get the training labels
     train_labels = os.listdir(train_path)
 
@@ -13,7 +13,7 @@ def print_tree(bintree):
         os.makedirs(test_path)
 
     export_graphviz(
-        bintree,
+        tree,
         out_file="tree.dot",
         class_names=train_labels,
         rounded=True,
@@ -21,6 +21,6 @@ def print_tree(bintree):
     )
 
 if __name__ == "__main__":
-    bintree  = DecisionTreeClassifier(random_state=seed)
-    train_model(bintree)
-    print_tree(bintree)
+    tree  = DecisionTreeClassifier(random_state=seed)
+    train_model(tree)
+    print_tree(tree)

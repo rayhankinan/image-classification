@@ -1,6 +1,3 @@
-#-----------------------------------
-# TRAINING OUR MODEL
-#-----------------------------------
 import h5py
 import numpy as np
 import os
@@ -8,15 +5,8 @@ import glob
 import cv2
 import warnings
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier, export_graphviz
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 from global_var import *
 
 warnings.filterwarnings('ignore')
@@ -24,7 +14,7 @@ warnings.filterwarnings('ignore')
 #--------------------
 # tunable-parameters
 #--------------------
-# num_trees = 100
+
 test_size = 0.10
 seed      = 9
 train_path = "dataset/train"
@@ -33,20 +23,10 @@ h5_data    = 'output/data.h5'
 h5_labels  = 'output/labels.h5'
 scoring    = "accuracy"
 
-def train_model(bintree):
-    # # create all the machine learning models
-    # models = []
-    # models.append(('LR', LogisticRegression(random_state=seed)))
-    # models.append(('LDA', LinearDiscriminantAnalysis()))
-    # models.append(('KNN', KNeighborsClassifier()))
-    # models.append(('CART', DecisionTreeClassifier(random_state=seed)))
-    # models.append(('RF', RandomForestClassifier(n_estimators=num_trees, random_state=seed)))
-    # models.append(('NB', GaussianNB()))
-    # models.append(('SVM', SVC(random_state=seed)))
-
-    # # variables to hold the results and names
-    # results = []
-    # names   = []
+def train_model(tree):
+    #-----------------------------------
+    # TRAINING OUR MODEL
+    #-----------------------------------
 
     # import the feature vector and trained labels
     h5f_data  = h5py.File(h5_data, 'r')
@@ -79,31 +59,14 @@ def train_model(bintree):
     print("Train labels: {}".format(trainLabelsGlobal.shape))
     print("Test labels : {}".format(testLabelsGlobal.shape))
 
-    # # 10-fold cross validation
-    # for name, model in models:
-    #     kfold = KFold(n_splits=10, random_state=seed, shuffle=True)
-    #     cv_results = cross_val_score(model, trainDataGlobal, trainLabelsGlobal, cv=kfold, scoring=scoring)
-    #     results.append(cv_results)
-    #     names.append(name)
-    #     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
-    #     print(msg)
+    # fit the training data to the model
+    tree.fit(trainDataGlobal, trainLabelsGlobal)
 
-    # # boxplot algorithm comparison
-    # fig = plt.figure()
-    # fig.suptitle('Machine Learning algorithm comparison')
-    # ax = fig.add_subplot(111)
-    # plt.boxplot(results)
-    # ax.set_xticklabels(names)
-    # plt.show()
-
+def test_model(tree):
     #-----------------------------------
     # TESTING OUR MODEL
     #-----------------------------------
 
-    # fit the training data to the model
-    bintree.fit(trainDataGlobal, trainLabelsGlobal)
-
-def test_model(bintree):
     # get the training labels
     train_labels = os.listdir(train_path)
 
@@ -134,7 +97,7 @@ def test_model(bintree):
         global_feature = np.hstack([fv_histogram, fv_haralick, fv_hu_moments])
 
         # predict label of test image
-        prediction = bintree.predict(global_feature.reshape(1,-1))[0]
+        prediction = tree.predict(global_feature.reshape(1,-1))[0]
 
         # show predicted label on image
         cv2.putText(image, train_labels[prediction], (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,255,255), 3)
@@ -144,6 +107,6 @@ def test_model(bintree):
         plt.show()
 
 if __name__ == "__main__":
-    bintree  = DecisionTreeClassifier(random_state=seed)
-    train_model(bintree)
-    test_model(bintree)
+    tree  = DecisionTreeClassifier(random_state=seed)
+    train_model(tree)
+    test_model(tree)

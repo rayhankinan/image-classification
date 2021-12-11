@@ -1,7 +1,7 @@
+from sklearn.tree import DecisionTreeClassifier
 from global_var import *
-from output_tree import print_tree
+from output_tree import *
 from train_test import *
-from output import *
 
 tree = None
 
@@ -31,5 +31,6 @@ if __name__ == "__main__":
                 break
             else:
                 print("INVALID COMMAND")
+                
         except:
             print("COMMAND ERROR")

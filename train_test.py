@@ -6,7 +6,6 @@ import cv2
 import warnings
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
 from global_var import *
 
 warnings.filterwarnings('ignore')
@@ -105,8 +104,3 @@ def test_model(tree):
         # display the output image
         plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         plt.show()
-
-if __name__ == "__main__":
-    tree  = DecisionTreeClassifier(random_state=seed)
-    train_model(tree)
-    test_model(tree)

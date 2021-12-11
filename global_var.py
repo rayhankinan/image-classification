@@ -119,6 +119,3 @@ def prepare_data():
     h5f_label.close()
 
     print("[STATUS] end of training..")
-
-if __name__ == "__main__":
-    prepare_data()

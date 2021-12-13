@@ -46,6 +46,8 @@ def train_model(tree):
 
     tree.fit(trainDataGlobal, trainLabelsGlobal)
 
+    print("Accuracy    : {:.2f}%".format(100 * tree.score(testDataGlobal, testLabelsGlobal)))
+
 def test_model(tree):
     train_labels = os.listdir(train_path)
     train_labels.sort()

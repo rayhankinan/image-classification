@@ -14,8 +14,8 @@ test_size = 0.10
 seed      = 9
 train_path = "dataset/train"
 test_path  = "dataset/test"
-h5_data    = 'output/data.h5'
-h5_labels  = 'output/labels.h5'
+h5_data    = "output/data.h5"
+h5_labels  = "output/labels.h5"
 scoring    = "accuracy"
 
 def train_model(tree):

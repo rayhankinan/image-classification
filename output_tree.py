@@ -12,4 +12,4 @@ def print_tree(tree):
         os.makedirs(test_path)
 
     graph = graph_from_dot_data(export_graphviz(tree, class_names=train_labels, rounded=True, filled=True))[0]
-    graph.write_jpg('tree.jpg')
+    graph.write_jpg("tree.jpg")

@@ -8,8 +8,8 @@ import h5py
 images_per_class = 80
 fixed_size       = tuple((500, 500))
 train_path       = "dataset/train"
-h5_data          = 'output/data.h5'
-h5_labels        = 'output/labels.h5'
+h5_data          = "output/data.h5"
+h5_labels        = "output/labels.h5"
 bins             = 8
 
 def fd_hu_moments(image):
